@@ -1,0 +1,216 @@
+:root {
+    --colorLetra: #EEEBE4;
+    --colorHeader: #87B297;
+    --colorMenu: #A3C3AC;
+    --colorMes: #B592A0;
+    --colorEventos: #849ae6;
+    --colorTareas: #E87EA1;
+    --colorCumples:#9c6faa ;
+    --colorFondo: #f4f4f4;
+    --WireOne: 'Wire One', sans-serif;
+    --roboto: 'Roboto', sans-serif;
+    --ConcertOne: 'Concert One', sans-serif;
+}
+
+/**Para dark mode*/
+body.dark-mode {
+    --colorLetra: #EEEBE4;
+    --colorHeader: #2f3832;
+    --colorMenu: #223628;
+    --colorMes: #B592A0;
+    --colorEventos: #849ae6;
+    --colorTareas: #E87EA1;
+    --colorCumples:#9c6faa ;
+    --colorFondo: #161616;
+    /* Otros estilos del tema oscuro */
+}
+
+/**Fondos de la pagina**/
+body{
+    background-color: var(--colorFondo) !important;
+}
+
+.custom-background{
+    background-color: var(--colorFondo) !important;
+}
+
+/**Barra de navegacion**/
+.navbar{
+    background-color: var(--colorMenu);
+}
+
+.name-logo{
+    font-family: var(--WireOne);
+    font-size: 60px;
+    font-weight: 100;
+    color: #EEEBE4;
+}
+.navbar-nav {
+    margin-left: auto;
+}
+
+.navbar-nav .nav-link {
+    margin-left: 15px;
+}
+
+.logout{
+    width: 120px;
+    padding: 5px 20px;
+    border: 1px solid #EEEBE4;
+    border-radius: 10px;
+    font-size: 17px;
+    font-family: var(--roboto);
+    background-color: var(--colorMenu);
+    color: var(--colorLetra);
+}
+
+.logout:hover{
+    background-color: var(--colorHeader);
+}
+
+.help-button{
+    color: var(--colorLetra);
+}
+
+.help-button:hover{
+    color: var(--colorMes);
+}
+
+.mode-link{
+    color: var(--colorLetra);
+}
+
+.mode-link:hover{
+    color: var(--colorMes);
+}
+
+@media (min-width:768px) {
+    .navbar-nav{
+        width: 50%;
+    }
+    li{
+        width: 100%;
+    }
+
+}
+
+/**Body de la pagina*/
+#mes{
+    color: var(--colorMes);
+    font-family: var(--ConcertOne);
+    font-size: 60px;
+    text-align: center;
+}
+
+h3{
+    font-family: var(--ConcertOne);
+}
+
+#icon-cake{
+    color: var(--colorCumples);
+}
+#icon-evento{
+    color: var(--colorEventos);
+}
+#icon-tarea{
+    color: var(--colorTareas);
+}
+
+.card-body{
+    min-height: 50vh;
+}
+
+/*Para que al lado del evento/ tarea/ cumpleaños, se pueda editar o borrar*/
+.dropdown-toggle {
+    font-family: 'Material Icons';
+    font-size: 24px;
+    line-height: 1;
+    vertical-align: middle;
+    cursor: pointer;
+    color: var(--colorMenu);
+}
+
+.dropdown-toggle:hover{
+    color: var(--colorHeader);
+}
+
+.dropdown .dropdown-menu .dropdown-item:focus,
+.dropdown .dropdown-menu .dropdown-item:active {
+  background-color: var(--colorMenu) !important;
+}
+/**Para seleccionar el dia de la semana*/
+.nav-pills .nav-link.active {
+    background-color: var(--colorMenu) !important;
+}
+.nav-pills .nav-link{
+    color: var(--colorHeader);
+}
+
+.nav-pills .nav-link:hover{
+    color: var(--colorMes);
+}
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+/**Boton que despliega el menu para añadir al calendario*/
+.rounded-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    
+}
+
+.custom-button {
+    background-color: var(--colorMes) !important;
+    border-color: var(--colorMes) !important;
+}
+
+.custom-button:hover{
+    background-color: var(--colorTareas) !important;
+    border-color: var(--colorMes) !important;
+}
+
+.dropdown-item:active {
+    background-color: var(--colorMenu) !important;
+}
+
+/**Forms para añadir al calendario**/
+.card-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 1000;
+}
+  
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+  
+.overlay.show {
+    display: block;
+}
+
+.btn-primary{
+    background-color: var(--colorHeader) !important;
+    border-color: var(--colorMenu) !important;
+}
+
+.btn-primary:hover{
+    background-color: var(--colorMenu) !important;
+    border-color: var(--colorMenu) !important;
+}

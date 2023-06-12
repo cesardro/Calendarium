@@ -1,0 +1,117 @@
+:root {
+    --colorLetra: #EEEBE4;
+    --colorHeader: #87B297;
+    --colorMenu: #A3C3AC;
+    --colorMes: #B592A0;
+    --colorEventos: #849ae6;
+    --colorTareas: #E87EA1;
+    --colorCumples:#9c6faa ;
+    --colorFondo: #f4f4f4;
+    --WireOne: 'Wire One', sans-serif;
+    --roboto: 'Roboto', sans-serif;
+    --ConcertOne: 'Concert One', sans-serif;
+}
+
+/**Para dark mode*/
+body.dark-mode {
+    --colorLetra: #EEEBE4;
+    --colorHeader: #2f3832;
+    --colorMenu: #223628;
+    --colorMes: #B592A0;
+    --colorEventos: #849ae6;
+    --colorTareas: #E87EA1;
+    --colorCumples:#9c6faa ;
+    --colorFondo: #161616;
+    /* Otros estilos del tema oscuro */
+}
+
+/**Fondos de la pagina**/
+body{
+    background-color: var(--colorFondo) !important;
+}
+
+.custom-background{
+    background-color: var(--colorFondo) !important;
+}
+
+/**Barra de navegacion**/
+.navbar{
+    background-color: var(--colorMenu);
+}
+
+.name-logo{
+    font-family: var(--WireOne);
+    font-size: 60px;
+    font-weight: 100;
+    color: #EEEBE4;
+}
+.navbar-nav {
+    margin-left: auto;
+}
+
+.navbar-nav .nav-link {
+    margin-left: 15px;
+}
+
+.logout{
+    width: 120px;
+    padding: 5px 20px;
+    border: 1px solid #EEEBE4;
+    border-radius: 10px;
+    font-size: 17px;
+    font-family: var(--roboto);
+    background-color: var(--colorMenu);
+    color: var(--colorLetra);
+}
+
+.logout:hover{
+    background-color: var(--colorHeader);
+}
+
+.help-button{
+    color: var(--colorLetra);
+}
+
+.help-button:hover{
+    color: var(--colorMes);
+}
+
+.mode-link{
+    color: var(--colorLetra);
+}
+
+.mode-link:hover{
+    color: var(--colorMes);
+}
+
+@media (min-width:768px) {
+    .navbar-nav{
+        width: 50%;
+    }
+    li{
+        width: 100%;
+    }
+
+}
+
+/**Body de la pagina*/
+h1{
+    color: var(--colorMes);
+    font-family: var(--ConcertOne);
+    font-size: 60px;
+    text-align: center;
+}
+
+h3{
+    font-family: var(--ConcertOne);
+    font-size: 60px;
+    text-align: center;
+}
+
+p{
+    font-family: var(--roboto);
+}
+
+ol,li{
+    font-family: var(--roboto);
+}

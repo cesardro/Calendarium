@@ -1,0 +1,141 @@
+{% extends "calendario/base.html" %}
+{% load static %}
+
+{% block cabecera %}
+    <link rel="stylesheet" href="{% static 'calendario/css/trackers.css' %}">
+    <title>Trackers</title>
+    <script src="{% static 'calendario/js/tema.js' %}"></script>
+{% endblock %}
+
+{% block links %}
+<ul class="navbar-nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'calendar_view' %}">Mensual</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'vistatrackers' %}">Trackers</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block contenido %}
+    <div class="container contenedor">
+        
+        <div class="row m-5">
+            <div class="col-sm-6 col-md-6 col-lg-3 mt-5">
+                <div class="card">
+                    <div class="card-header p-2 d-flex justify-content-center align-items-center">
+                        <h3>To do</h3>
+                    </div>
+                    <div class="card-body overflow-auto">
+                        {% for c in trackers %}{% if c.track_name == "To-do" %}
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex align-items-center flex-fill">
+                                <span>{{c.title}}</span>
+                                <div class="form-check form-switch ms-auto">
+                                    <input class="form-check-input toggle-switch" type="checkbox" id="toggleSwitch">
+                                    <label class="form-check-label" for="toggleSwitch"></label>
+                                </div>
+                                <a href="{% url 'borrar_elemento_tracker' c.id_tracker %}" id="{{c.id_tracker}}">
+                                    <i class="material-icons" id="basura">delete_forever</i>
+                                </a>
+                            </li>
+                        </ul>
+                        {% endif %}{% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-6  col-md-6 col-lg-3 mt-5">
+                <div class="card">
+                    <div class="card-header p-2 d-flex justify-content-center align-items-center">
+                        <h3>Series</h3>
+                    </div>
+                    <div class="card-body overflow-auto">
+                        {% for c in trackers %}{% if c.track_name == "Series" %}
+                        <ul class="list-group list-group-flush ">
+                            <li class="list-group-item d-flex align-items-center">
+                                <span>{{c.title}}</span>
+                                <div class="form-check form-switch ms-auto">
+                                    <input class="form-check-input" type="checkbox" id="toggleSwitch">
+                                </div>
+                                <a href="{% url 'borrar_elemento_tracker' c.id_tracker %}" id="{{c.id_tracker}}">
+                                    <i class="material-icons" id="basura">delete_forever</i>
+                                </a>
+                            </li>
+                        </ul>
+                        {% endif %}{% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6  col-md-6 col-lg-3 mt-5">
+                <div class="card">
+                    <div class="card-header p-2 d-flex justify-content-center align-items-center">
+                        <h3>Peliculas</h3>
+                    </div>
+                    <div class="card-body overflow-auto">
+                        {% for c in trackers %}{% if c.track_name == "Peliculas" %}
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex align-items-center">
+                                <span>{{c.title}}</span>
+                                <div class="form-check form-switch ms-auto">
+                                    <input class="form-check-input" type="checkbox" id="toggleSwitch">
+                                </div>
+                                <a href="{% url 'borrar_elemento_tracker' c.id_tracker %}" id="{{c.id_tracker}}">
+                                    <i class="material-icons" id="basura">delete_forever</i>
+                                </a>
+                            </li>
+                        </ul>
+                        {% endif %}{% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3  col-md-6 col-lg-3 mt-5">
+                <div class="card">
+                    <div class="card-header p-2 d-flex justify-content-center align-items-center">
+                        <h3>Libros</h3>
+                    </div>
+                    <div class="card-body overflow-auto ">
+                        {% for c in trackers %}{% if c.track_name == "Libros" %}
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex align-items-center">
+                                <span>{{c.title}}</span>
+                                <div class="form-check form-switch ms-auto">
+                                    <input class="form-check-input" type="checkbox" id="toggleSwitch">
+                                </div>
+                                <a href="{% url 'borrar_elemento_tracker' c.id_tracker %}" id="{{c.id_tracker}}">
+                                    <i class="material-icons" id="basura">delete_forever</i>
+                                </a>
+                            </li>
+                        </ul>
+                        {% endif %}{% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row m-5">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
+                <h1 class="d-flex justify-content-center align-items-center">Añadir al tracker</h1>
+                <form action="vistatrackers" method="post">
+                    <div class="mb-3 mt-3">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <input type="submit" class="btn" value="Enviar">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!--JavaScript-->
+    <script src="{% static 'calendario/js/trackers.js' %}"></script>
+    <script src="{% static 'calendario/js/tema.js' %}"></script>
+{% endblock %}

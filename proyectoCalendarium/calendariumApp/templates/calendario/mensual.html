@@ -1,0 +1,94 @@
+{% extends "calendario/base.html" %}
+{% load static %}
+
+{% block cabecera %}
+    <link rel="stylesheet" type="text/css" href="{% static 'calendario/css/mensual.css' %}">
+    <title>Vista mensual</title>
+{% endblock %}
+
+{% block links %}
+<ul class="navbar-nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'calendar_view' %}">Mensual</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'vistatrackers' %}">Trackers</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block contenido %}
+  <!--Contenido-->
+    <div class="container-fluid contenedor">
+      <div class="row mt-3">
+          <div class="col-lg-12 d-flex justify-content-center align-items-center">
+              <div class="d-flex align-items-center">
+                  <div class="col-3 col-md-1 col-sm-1">
+                      <button class="btn btn-link me-2" id="prev-month-btn" onclick="prevMonth()">
+                          <i class="material-icons">keyboard_arrow_left</i>
+                      </button>
+                  </div>
+                  <div class="col-6 col-md-10 col-sm-10 text-center">
+                      <h1 class="mb-4 mb-md-0 mb-sm-0 pb-4" id="month-year"></h1>
+                  </div>
+                  <div class="col-3 col-md-1 col-sm-1">
+                      <button class="btn btn-link ms-2" id="next-month-btn" onclick="nextMonth()">
+                          <i class="material-icons">keyboard_arrow_right</i>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>   
+      <div class="row">
+          <div class="col-lg-12">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Lun</th>
+                        <th>Mar</th>
+                        <th>Mié</th>
+                        <th>Jue</th>
+                        <th>Vie</th>
+                        <th>Sáb</th>
+                        <th>Dom</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for week in calendar_matrix %}
+                        <tr>
+                            {% for day in week %}
+                                <td>
+                                    {% if day != 0 %}
+                                        <span class="day">{{ day }}</span>
+                                        {% for event in eventos %}
+                                            {% if event.date.day == day %}
+                                                <p>{{ event.title }}</p>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% for task in tareas %}
+                                            {% if task.exp_date.day == day %}
+                                                <p>{{ task.title }}</p>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% for birthday in cumpleanos %}
+                                            {% if birthday.date.day == day %}
+                                                <p>Cumpleaños de {{ birthday.name }}</p>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>                  
+          </div>
+      </div>
+    </div>
+    <script src="{% static 'calendario/js/jquery-3.6.1.js' %}"></script>
+    <script src="{% static 'calendario/js/mensual.js' %}"></script>
+    <script src="{% static 'calendario/js/tema.js' %}"></script>
+{% endblock %}

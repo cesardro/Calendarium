@@ -1,0 +1,510 @@
+{% extends "calendario/base.html" %}
+{% load static %}
+
+{% block cabecera %}
+    <link rel="stylesheet" type="text/css" href="{% static 'calendario/css/index.css' %}">
+    <title>Vista Semanal</title>
+{% endblock %}
+
+{% block links %}
+<ul class="navbar-nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'inicio' %}">Inicio</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'calendar_view' %}">Mensual</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'vistatrackers' %}">Trackers</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block contenido %}
+    <!--Contenedor para mostrar el calendario semanal-->
+    <div class="container contenedor">
+        <h1 id="mes" class="d-flex justify-content-center"></h1>
+        <!--Navegacion para los siguiente 7 dias-->
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#tab1" id="diaT1"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tab2" id="diaT2"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tab3" id="diaT3"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tab4" id="diaT4"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tab5" id="diaT5"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tab6" id="diaT6"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tab7" id="diaT7"></a>
+            </li>
+        </ul>
+        <!--Contenedor para mostrar el dia actual y los siguientes 6 dias-->
+        <div class="tab-content">
+            <!--Container donde se mostrara la informacion del dia actua, le llamamos dia 1-->
+            <div class="tab-pane fade show active" id="tab1">
+                <div class="card custom-background">
+                    <div class="card-body">
+                        <h3 class="d-flex justify-content-center" id="dia1"></h3>
+                        <ul class="list-group list-group-flush">
+                            {% for c in cumpleano %}{% if c.date == fecha_actual0 %}    
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="cumple">
+                                    <i class="material-icons" id="icon-cake">cake</i>
+                                    <span>{{c.name}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_cumpleano' c.id_bday %}" id="{{c.id_bday}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                            {% for c in evento %}{% if c.date == fecha_actual0 %} 
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="evento">
+                                    <i class="material-icons" id="icon-evento">event</i>
+                                    <span>{{c.title}} - {{c.description}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_evento' c.id_event %}" id="{{c.id_event}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                            {% for c in tarea %}{% if c.exp_date == fecha_actual0 %} 
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="tarea">
+                                    <i class="material-icons" id="icon-tarea">assignment</i>
+                                    <span>{{c.title}} - {{c.description}} - {{c.priority}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_tarea' c.id_task %}" id="{{c.id_task}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab2">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="d-flex justify-content-center" id="dia2"></h3>
+                        <ul class="list-group list-group-flush">
+                            {% for c in cumpleano %}{% if c.date == fecha_actual1 %}    
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="cumple">
+                                    <i class="material-icons" id="icon-cake">cake</i>
+                                    <span>{{c.name}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_cumpleano' c.id_bday %}" id="{{c.id_bday}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                            {% for c in evento %}{% if c.date == fecha_actual1 %} 
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="evento">
+                                    <i class="material-icons" id="icon-evento">event</i>
+                                    <span>{{c.title}} - {{c.description}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_evento' c.id_event %}" id="{{c.id_event}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                            {% for c in tarea %}{% if c.exp_date == fecha_actual1 %} 
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="tarea">
+                                    <i class="material-icons" id="icon-tarea">assignment</i>
+                                    <span>{{c.title}} - {{c.description}} - {{c.priority}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_tarea' c.id_task %}" id="{{c.id_task}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="d-flex justify-content-center" id="dia3"></h3>
+                        <ul class="list-group list-group-flush">
+                            {% for c in cumpleano %}{% if c.date == fecha_actual2 %}    
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="cumple">
+                                    <i class="material-icons" id="icon-cake">cake</i>
+                                    <span>{{c.name}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_cumpleano' c.id_bday %}" id="{{c.id_bday}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                            {% for c in evento %}{% if c.date == fecha_actual2 %} 
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="evento">
+                                    <i class="material-icons" id="icon-evento">event</i>
+                                    <span>{{c.title}} - {{c.description}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_evento' c.id_event %}" id="{{c.id_event}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                            {% for c in tarea %}{% if c.exp_date == fecha_actual2 %} 
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="tarea">
+                                    <i class="material-icons" id="icon-tarea">assignment</i>
+                                    <span>{{c.title}} - {{c.description}} - {{c.priority}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_tarea' c.id_task %}" id="{{c.id_task}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="d-flex justify-content-center" id="dia4"></h3>
+                        <ul class="list-group list-group-flush">
+                            {% for c in cumpleano %}{% if c.date == fecha_actual3 %}    
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="cumple">
+                                    <i class="material-icons" id="icon-cake">cake</i>
+                                    <span>{{c.name}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_cumpleano' c.id_bday %}" id="{{c.id_bday}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                            {% for c in evento %}{% if c.date == fecha_actual3 %} 
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="evento">
+                                    <i class="material-icons" id="icon-evento">event</i>
+                                    <span>{{c.title}} - {{c.description}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_evento' c.id_event %}" id="{{c.id_event}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                            {% for c in tarea %}{% if c.exp_date == fecha_actual3 %} 
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="tarea">
+                                    <i class="material-icons" id="icon-tarea">assignment</i>
+                                    <span>{{c.title}} - {{c.description}} - {{c.priority}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_tarea' c.id_task %}" id="{{c.id_task}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab5">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="d-flex justify-content-center" id="dia5"></h3>
+                        <ul class="list-group list-group-flush">
+                            {% for c in cumpleano %}{% if c.date == fecha_actual4 %}    
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="cumple">
+                                    <i class="material-icons" id="icon-cake">cake</i>
+                                    <span>{{c.name}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_cumpleano' c.id_bday %}" id="{{c.id_bday}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                            {% for c in evento %}{% if c.date == fecha_actual4 %} 
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="evento">
+                                    <i class="material-icons" id="icon-evento">event</i>
+                                    <span>{{c.title}} - {{c.description}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_evento' c.id_event %}" id="{{c.id_event}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                            {% for c in tarea %}{% if c.exp_date == fecha_actual4 %} 
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="tarea">
+                                    <i class="material-icons" id="icon-tarea">assignment</i>
+                                    <span>{{c.title}} - {{c.description}} - {{c.priority}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_tarea' c.id_task %}" id="{{c.id_task}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="d-flex justify-content-center" id="dia6"></h3>
+                        <ul class="list-group list-group-flush">
+                            {% for c in cumpleano %}{% if c.date == fecha_actual5 %}    
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="cumple">
+                                    <i class="material-icons" id="icon-cake">cake</i>
+                                    <span>{{c.name}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_cumpleano' c.id_bday %}" id="{{c.id_bday}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                            {% for c in evento %}{% if c.date == fecha_actual5 %} 
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="evento">
+                                    <i class="material-icons" id="icon-evento">event</i>
+                                    <span>{{c.title}} - {{c.description}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_evento' c.id_event %}" id="{{c.id_event}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                            {% for c in tarea %}{% if c.exp_date == fecha_actual5 %} 
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="tarea">
+                                    <i class="material-icons" id="icon-tarea">assignment</i>
+                                    <span>{{c.title}} - {{c.description}} - {{c.priority}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_tarea' c.id_task %}" id="{{c.id_task}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab7">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="d-flex justify-content-center" id="dia7"></h3>
+                        <ul class="list-group list-group-flush">
+                            {% for c in cumpleano %}{% if c.date == fecha_actual6 %}    
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="cumple">
+                                    <i class="material-icons" id="icon-cake">cake</i>
+                                    <span>{{c.name}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_cumpleano' c.id_bday %}" id="{{c.id_bday}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                            {% for c in evento %}{% if c.date == fecha_actual6 %} 
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="evento">
+                                    <i class="material-icons" id="icon-evento">event</i>
+                                    <span>{{c.title}} - {{c.description}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_evento' c.id_event %}" id="{{c.id_event}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                            {% for c in tarea %}{% if c.exp_date == fecha_actual6 %} 
+                                <li class="list-group-item d-flex align-items-center flex-fill custom-background" id="tarea">
+                                    <i class="material-icons" id="icon-tarea">assignment</i>
+                                    <span>{{c.title}} - {{c.description}} - {{c.priority}}</span>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{% url 'borrar_elemento_tarea' c.id_task %}" id="{{c.id_task}}">Borrar</a></li>
+                                            <li><a class="dropdown-item" href="#">Editar</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}{% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Opciones y cards de los forms-->
+    <div class="position-fixed bottom-0 end-0 p-3">
+        <button class="btn btn-secondary rounded-circle dropdown-toggle custom-button" type="button"
+            id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="material-icons">add</i>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="#" onclick="showCard('card1')">Evento</a></li>
+            <li><a class="dropdown-item" href="#" onclick="showCard('card2')">Tarea</a></li>
+            <li><a class="dropdown-item" href="#" onclick="showCard('card3')">Cumpleaños</a></li>
+        </ul>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="hideCard()"></div>
+
+    <!--Form de evento-->
+    <div class="container-fluid">
+        <div id="card1" class="card-container p-3 col-lg-4 col-md-8 col-sm-10">
+            <h3>Añadir evento</h3>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form_evento.as_p }}
+                <input type="submit" class="btn btn-primary" value="Guardar">
+                <input onclick="hideCard('card1')" class="btn btn-primary" value="Cerrar">
+            </form>
+        </div>
+    </div>
+    <!--Form de tarea-->
+    <div class="container-fluid">
+        <div id="card2" class="card-container p-3 col-lg-4 col-md-8 col-sm-10">
+            <h3>Añadir tarea</h3>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form_tarea.as_p }}
+                <input type="submit" class="btn btn-primary" value="Guardar">
+                <input onclick="hideCard('card2')" class="btn btn-primary" value="Cerrar">
+            </form>
+        </div>
+    </div>
+    <!--Form de cumple-->
+    <div class="container-fluid">
+        <div id="card3" class="card-container p-3 col-lg-4 col-md-8 col-sm-10">
+            <h3>Añadir cumpleaños</h3>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form_cumpleano.as_p }}
+                <input type="submit" class="btn btn-primary" value="Guardar">
+                <input onclick="hideCard('card3')" class="btn btn-primary" value="Cerrar">
+            </form>
+        </div>
+    </div>
+    <!--JavaScript-->
+    <script src="{% static 'calendario/js/index.js' %}"></script>
+    <script src="{% static 'calendario/js/tema.js' %}"></script>
+{% endblock %}

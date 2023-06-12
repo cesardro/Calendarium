@@ -1,0 +1,59 @@
+{# esto es un comentario #}
+{% extends "calendario/base.html" %}
+{% load static %}
+
+{% block cabecera %}
+    <link rel="stylesheet" href="{% static 'calendario/css/ayuda.css' %}">
+    <title>Ayuda</title>
+{% endblock %}
+
+
+{% block contenido %}
+<div class="container-fluid contenedor">
+    <div class="row">
+        <div class="col-lg-3 col-sm-2"></div>
+        <div class="col-lg-6 col-sm-8">
+            <h1 class="text-center">Preguntas frecuentes</h1>
+            <hr>
+            <div>
+                <h3>¿Como se añade al calendario?</h3>
+                <p>Para añadir un evento al calendario, sigue estos pasos:</p>
+                <ol type="1">
+                    <li>Ve a la página de inicio.</li>
+                    <li>En la esquina inferior derecha, encontrarás un botón circular con un símbolo de "+" en el centro.</li>
+                    <li>Haz clic en ese botón.</li>
+                    <li>Se abrirá un formulario donde podrás elegir si deseas añadir un evento, tarea o cumpleaños.</li>
+                    <li>Rellena los campos del formulario con la información correspondiente.</li>
+                    <li> Una vez completado, pulsa el botón de "Enviar".</li>
+                </ol>
+                <p>Nosotros nos encargaremos del resto.</p>
+            </div>
+            <div>
+                <h3>¿Puedo modificar eventos ya creados?</h3>
+                <p>Por supuesto, sigue estos pasos:</p>
+                <ol type="1">
+                    <li>Ve a la página de inicio o mensual.</li>
+                    <li>Busca el evento que quieras modificar y dale click a los 3 puntos. </li>
+                    <li>Haz clic en editar.</li>
+                    <li>Se abrirá un formulario donde podrás modificar lo que desees.</li>
+                    <li> Una vez completado, pulsa el botón de "Enviar".</li>
+                </ol>
+                <p>Esto tambien sirve para tareas y cumpleaños.</p>
+            </div>
+            <div>
+                <h3>¿Puedo eliminar del calendario?</h3>
+                <p>Por supuesto, sigue estos pasos:</p>
+                <ol type="1">
+                    <li>Ve a la página de inicio o mensual.</li>
+                    <li>Busca el evento que quieras modificar y dale click a los 3 puntos. </li>
+                    <li>Haz clic en eliminar.</li>
+                </ol>
+                <p>Ten cuidado, una vez borrado no podras recuperar ese evento tendras que crearlo de nuevo.</p>
+            </div>
+        </div>
+        <div class="col-lg-3"></div>
+      </div>
+    </div>
+
+    <script src="{% static 'calendario/js/tema.js' %}"></script>
+{% endblock %}
