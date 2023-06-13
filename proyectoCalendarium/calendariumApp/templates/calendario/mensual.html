@@ -60,7 +60,7 @@
                     {% for week in calendar_matrix %}
                         <tr>
                             {% for day in week %}
-                                <td>
+                                <td {% if day == diaActual %} class="diaActual"{% endif %}>
                                     {% if day != 0 %}
                                         <span class="day">{{ day }}</span>
                                         {% for event in eventos %}

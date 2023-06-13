@@ -172,6 +172,8 @@ def calendar_view(response):
     # Generar la matriz del calendario
     calendar_matrix = calendar.monthcalendar(current_year, current_month)
 
+    diaActual = datetime.date.today().day
+
     context = {
         'calendar_matrix': calendar_matrix,
         'eventos': eventos,
@@ -179,6 +181,7 @@ def calendar_view(response):
         'cumpleanos': cumpleanos,
         'current_month': current_month,
         'current_year': current_year,
+        'diaActual': diaActual, 
     }
 
     return render(response, "calendario/mensual.html", context)
