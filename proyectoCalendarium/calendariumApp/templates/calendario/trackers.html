@@ -36,7 +36,12 @@
                             <li class="list-group-item d-flex align-items-center flex-fill">
                                 <span>{{c.title}}</span>
                                 <div class="form-check form-switch ms-auto">
-                                    <input class="form-check-input toggle-switch" type="checkbox" id="toggleSwitch">
+                                    {% csrf_token %}
+                                    {% if c.realizado == "1" %}
+                                        <input class="form-check-input toggleSwitch" type="checkbox" id="toggleSwitch" data-evento-id="{{ c.id_tracker }}" checked>
+                                    {% else %}
+                                        <input class="form-check-input toggleSwitch" type="checkbox" id="toggleSwitch" data-evento-id="{{ c.id_tracker }}">
+                                    {% endif %}
                                     <label class="form-check-label" for="toggleSwitch"></label>
                                 </div>
                                 <a href="{% url 'borrar_elemento_tracker' c.id_tracker %}" id="{{c.id_tracker}}">
@@ -60,7 +65,12 @@
                             <li class="list-group-item d-flex align-items-center">
                                 <span>{{c.title}}</span>
                                 <div class="form-check form-switch ms-auto">
-                                    <input class="form-check-input" type="checkbox" id="toggleSwitch">
+                                    {% csrf_token %}
+                                    {% if c.realizado == "1" %}
+                                        <input class="form-check-input toggleSwitch" type="checkbox" id="toggleSwitch" data-evento-id="{{ c.id_tracker }}" checked>
+                                    {% else %}
+                                        <input class="form-check-input toggleSwitch" type="checkbox" id="toggleSwitch" data-evento-id="{{ c.id_tracker }}">
+                                    {% endif %}
                                 </div>
                                 <a href="{% url 'borrar_elemento_tracker' c.id_tracker %}" id="{{c.id_tracker}}">
                                     <i class="material-icons" id="basura">delete_forever</i>
@@ -82,7 +92,12 @@
                             <li class="list-group-item d-flex align-items-center">
                                 <span>{{c.title}}</span>
                                 <div class="form-check form-switch ms-auto">
-                                    <input class="form-check-input" type="checkbox" id="toggleSwitch">
+                                    {% csrf_token %}
+                                    {% if c.realizado == "1" %}
+                                        <input class="form-check-input toggleSwitch" type="checkbox" id="toggleSwitch" data-evento-id="{{ c.id_tracker }}" checked>
+                                    {% else %}
+                                        <input class="form-check-input toggleSwitch" type="checkbox" id="toggleSwitch" data-evento-id="{{ c.id_tracker }}">
+                                    {% endif %}
                                 </div>
                                 <a href="{% url 'borrar_elemento_tracker' c.id_tracker %}" id="{{c.id_tracker}}">
                                     <i class="material-icons" id="basura">delete_forever</i>
@@ -104,7 +119,12 @@
                             <li class="list-group-item d-flex align-items-center">
                                 <span>{{c.title}}</span>
                                 <div class="form-check form-switch ms-auto">
-                                    <input class="form-check-input" type="checkbox" id="toggleSwitch">
+                                    {% csrf_token %}
+                                    {% if c.realizado == "1" %}
+                                        <input class="form-check-input toggleSwitch" type="checkbox" id="toggleSwitch" data-evento-id="{{ c.id_tracker }}" checked>
+                                    {% else %}
+                                        <input class="form-check-input toggleSwitch" type="checkbox" id="toggleSwitch" data-evento-id="{{ c.id_tracker }}">
+                                    {% endif %}
                                 </div>
                                 <a href="{% url 'borrar_elemento_tracker' c.id_tracker %}" id="{{c.id_tracker}}">
                                     <i class="material-icons" id="basura">delete_forever</i>
@@ -136,6 +156,31 @@
     </div>
     
     <!--JavaScript-->
+    <script src="{% static 'calendario/js/jquery-3.6.1.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('.toggleSwitch').on('click', function () {
+                var eventoId = $(this).data('evento-id'); // Id del evento que deseas actualizar
+                var csrfToken = $('input[name="csrfmiddlewaretoken"]').val(); // Obtener el token CSRF
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'actualizar_evento' %}",
+                    data: {
+                        evento_id: eventoId,
+                        csrfmiddlewaretoken: csrfToken // Incluir el token CSRF en los datos
+                    },
+                    success: function (response) {
+                        console.log(response.message);
+                        // Realiza cualquier acción adicional después de actualizar el evento
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('Error:', error);
+                    }
+                });
+            });
+        });
+    </script>
+    
     <script src="{% static 'calendario/js/trackers.js' %}"></script>
     <script src="{% static 'calendario/js/tema.js' %}"></script>
 {% endblock %}

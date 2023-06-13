@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import datetime
 from django.template import loader
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from .models import Tracker, Evento, Tarea, Cumpleano
@@ -121,6 +121,18 @@ def vistatrackers(response):
     }
     # Resto de la lógica de la vista protegida
     return render(response, "calendario/trackers.html", context)
+
+def actualizar_evento(response):
+    if response.method == 'POST':
+        evento_id = response.POST.get('evento_id')
+        trackers = Tracker.objects.get(id_tracker=evento_id)
+        if trackers.realizado == '0':
+            trackers.realizado = '1'
+        elif trackers.realizado == '1':
+            trackers.realizado = '0'
+        trackers.save()
+        return JsonResponse({'message': 'Evento actualizado correctamente.'})
+    return JsonResponse({'error': 'Solicitud no válida.'})
 
 def borrar_elemento_tracker(request, id):
     elemento = get_object_or_404(Tracker, id_tracker=id)

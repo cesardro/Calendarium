@@ -57,6 +57,7 @@ class Tracker(models.Model):
     id_tracker = models.AutoField(primary_key=True)
     track_name = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
+    realizado = models.CharField(max_length=1, default='0')
     created = models.DateTimeField(auto_now_add=True,verbose_name='Fecha de creación')
     updated = models.DateTimeField(auto_now=True,verbose_name='Fecha de modificación')
     author = models.ForeignKey(User,verbose_name='autor',on_delete=models.CASCADE)

@@ -12,4 +12,6 @@ urlpatterns = [
     path('borrarTarea/<int:id>/', views.borrar_elemento_tarea, name='borrar_elemento_tarea'),
     path('borrarEvento/<int:id>/', views.borrar_elemento_evento, name='borrar_elemento_evento'),
     path('logout/', views.logout_view, name='logout'),
+    path('actualizar-evento/', views.actualizar_evento, name='actualizar_evento'),
+
 ]
